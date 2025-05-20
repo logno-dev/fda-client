@@ -42,7 +42,7 @@ export default async function Home(props: {
     `SELECT COUNT(*) FROM 'enforcements' ${search}`,
   );
 
-  const pageCount = Math.ceil(+count.rows[0][0] / +limit)
+  const pageCount = Math.ceil(Number(count.rows[0][0]) / +limit)
 
   const data = rows.map((row) => {
     return {
