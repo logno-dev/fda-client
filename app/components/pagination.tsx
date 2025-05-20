@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-export function Pagination({ current, count }) {
+export function Pagination({ current, count }: { current: number, count: number }) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { push } = useRouter()
