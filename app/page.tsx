@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { Pagination } from "./components/pagination";
 import { Search } from "./components/search";
 import { Suspense } from "react";
+import { Limit } from "./components/limit-results";
 
 function formatDate(dateStr: string) {
 
@@ -26,29 +27,32 @@ export default async function Home(props: {
   }>;
 }) {
   const searchParams = await props.searchParams;
-  const order = searchParams?.order || 'recall_date';
+  const order = searchParams?.order || 'center_classification_date';
   const direction = searchParams?.direction || 'DESC';
   const currentPage = Number(searchParams?.page) || 1;
-  const search = searchParams?.search ? `WHERE recall_number LIKE "%${searchParams.search}%" OR recall_reason LIKE "%${searchParams.search}%" OR product_details LIKE "%${searchParams.search}%" OR recalling_firm LIKE "%${searchParams.search}%" OR product_type LIKE "%${searchParams.search}%" OR title LIKE "%${searchParams.search}%" OR summary LIKE "%${searchParams.search}%"` : '';
+  const search = searchParams?.search ? `WHERE recall_number LIKE "%${searchParams.search}%" OR reason LIKE "%${searchParams.search}%" OR product_description LIKE "%${searchParams.search}%" OR recalling_firm LIKE "%${searchParams.search}%" OR product_type LIKE "%${searchParams.search}%" OR code_info LIKE "%${searchParams.search}%" OR summary LIKE "%${searchParams.search}%"` : '';
   const limit = searchParams?.limit || 10;
 
 
 
   const { rows } = await client.execute(
-    `SELECT * FROM 'enforcements' ${search} ORDER BY ${order} ${direction} LIMIT ${limit} OFFSET ${(currentPage - 1) * +limit}`,
+    `SELECT * FROM 'reports' ${search} ORDER BY ${order} ${direction} LIMIT ${limit} OFFSET ${(currentPage - 1) * +limit}`,
   );
 
   const count = await client.execute(
-    `SELECT COUNT(*) FROM 'enforcements' ${search}`,
+    `SELECT COUNT(*) FROM 'reports' ${search}`,
   );
 
   const pageCount = Math.ceil(Number(count.rows[0][0]) / +limit)
 
   const data = rows.map((row) => {
+
     return {
-      recall_date: formatDate(String(row.recall_date)),
-      title: row.title,
-      recall_reason: row.recall_reason
+      recall_date: formatDate(row.center_classification_date.toString()),
+      recalling_firm: row.recalling_firm ? String(row.recalling_firm).replaceAll("&#039;", "'") : ""
+      ,
+      recall_reason: row.reason,
+      recall_number: row.recall_number
     };
   });
 
@@ -56,22 +60,21 @@ export default async function Home(props: {
 
   return (
     <>
-      <div className="flex flex-col w-dvw absolute top-0 right-0 bottom-0 right-0">
-        <div className="flex bg-blue-500 h-20"></div>
-        <div className="flex p-2 grow">
-          <div className="min-w-30 bg-slate-500 p-2"></div>
-          <div className="p-2 pb-4 flex flex-col grow items-center justify-between gap-2">
-            <div className="flex flex-col grow">
-              <div>
-                <Search />
-              </div>
-              <Suspense fallback={<div>Loading data...</div>}>
-                <DataTable columns={columns} data={data} />
-              </Suspense>
-            </div>
-            <Pagination current={currentPage} count={pageCount} />
+      <div className="min-w-30 bg-slate-500 p-2"></div>
+      <div className="p-2 pb-4 flex flex-col grow items-center justify-between gap-2">
+        <div className="flex flex-col grow">
+          <div className="flex">
+            <Search />
+            <p className="text-neutral-400 text-sm self-center px-1">
+              results per page
+            </p>
+            <Limit />
           </div>
+          <Suspense fallback={<div>Loading data...</div>}>
+            <DataTable columns={columns} data={data} />
+          </Suspense>
         </div>
+        <Pagination current={currentPage} count={pageCount} />
       </div>
     </>
   );

@@ -27,7 +27,7 @@ export function Search() {
   }, 300)
 
   return (
-    <div className="flex items-center content-center justify-center gap-2 bg-neutral-100 rounded-md">
+    <div className="flex grow items-center content-center justify-center gap-2 bg-neutral-100 rounded-md">
       <Input
         type="text"
         placeholder="search recalls"

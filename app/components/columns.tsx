@@ -8,11 +8,15 @@ export const columns = [
     header: "Date",
   },
   {
-    accessorKey: "title",
-    header: "Title",
+    accessorKey: "recalling_firm",
+    header: "Firm",
   },
   {
     accessorKey: "recall_reason",
     header: "Reason",
-  }
+  },
+  {
+    accessorKey: "recall_number",
+    header: "ID",
+  },
 ];

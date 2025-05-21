@@ -7,6 +7,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { useRouter } from "next/router";
+
 import {
   Table,
   TableBody,
@@ -16,6 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Suspense } from "react";
+import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -31,6 +34,8 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+
   return (
     <div className="rounded-md border max-h-[80dvh] overflow-auto">
       <Table>
@@ -52,7 +57,7 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody className="max-h-[80dvh] overflow-auto">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
@@ -62,7 +67,9 @@ export function DataTable<TData, TValue>({
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell style={{ textWrap: "wrap" }} className="min-w-[11ch]" key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    <Link className="w-full h-full" href={`/${row.getValue("recall_number")}`}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </Link>
                   </TableCell>
                 ))}
               </TableRow>
