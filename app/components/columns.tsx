@@ -16,7 +16,11 @@ export const columns = [
     header: "Reason",
   },
   {
-    accessorKey: "recall_number",
-    header: "ID",
+    accessorKey: "classification",
+    header: "Classification",
   },
+  {
+    accessorKey: "recall_number",
+    header: "ID"
+  }
 ];

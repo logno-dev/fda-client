@@ -7,15 +7,9 @@ import { Pagination } from "./components/pagination";
 import { Search } from "./components/search";
 import { Suspense } from "react";
 import { Limit } from "./components/limit-results";
+import { formatDate } from "./lib/functions";
+import { FilterBox } from "./components/filter-box";
 
-function formatDate(dateStr: string) {
-
-  const year = dateStr.slice(0, 4);
-  const month = dateStr.slice(4, 6);
-  const day = dateStr.slice(6, 8);
-
-  return `${year}-${month}-${day}`;
-}
 
 export default async function Home(props: {
   searchParams?: Promise<{
@@ -36,7 +30,7 @@ export default async function Home(props: {
 
 
   const { rows } = await client.execute(
-    `SELECT * FROM 'reports' ${search} ORDER BY ${order} ${direction} LIMIT ${limit} OFFSET ${(currentPage - 1) * +limit}`,
+    `SELECT center_classification_date, recalling_firm, reason, classification, recall_number FROM 'reports' ${search} ORDER BY ${order} ${direction} LIMIT ${limit} OFFSET ${(currentPage - 1) * +limit}`,
   );
 
   const count = await client.execute(
@@ -52,6 +46,7 @@ export default async function Home(props: {
       recalling_firm: row.recalling_firm ? String(row.recalling_firm).replaceAll("&#039;", "'") : ""
       ,
       recall_reason: row.reason,
+      classification: row.classification,
       recall_number: row.recall_number
     };
   });
@@ -60,7 +55,9 @@ export default async function Home(props: {
 
   return (
     <>
-      <div className="min-w-30 bg-slate-500 p-2"></div>
+      <div className="min-w-30 p-2">
+        <FilterBox header="Test" items={["item 1", "item 2", "item 3"]} />
+      </div>
       <div className="p-2 pb-4 flex flex-col grow items-center justify-between gap-2">
         <div className="flex flex-col grow">
           <div className="flex">

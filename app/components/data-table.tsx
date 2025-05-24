@@ -7,7 +7,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 import {
   Table,
@@ -34,6 +34,8 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const { push } = useRouter()
 
 
   return (
@@ -64,12 +66,11 @@ export function DataTable<TData, TValue>({
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
                 className="cursor-default"
+                onClick={() => push(`/${row.getValue("recall_number")}`)}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell style={{ textWrap: "wrap" }} className="min-w-[11ch]" key={cell.id}>
-                    <Link className="w-full h-full" href={`/${row.getValue("recall_number")}`}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </Link>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
               </TableRow>

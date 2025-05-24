@@ -24,7 +24,7 @@ export function Pagination({ current, count }: { current: number, count: number 
       {current > 1 && <Button onClick={() => handlePageNavigation(current - 1)}>{current - 1}</Button>}
       <Button className="bg-blue-600 text-white hover:bg-blue-600 hover:text-white">{current}</Button>
       {current < count - 1 && <Button onClick={() => handlePageNavigation(current + 1)}>{current + 1}</Button>}
-      {current < count - 2 && <Button onClick={() => handlePageNavigation(current + 1)}>{current + 2}</Button>}
+      {current < count - 2 && <Button onClick={() => handlePageNavigation(current + 2)}>{current + 2}</Button>}
       {current < count - 3 && <div className="font-bold px-2">...</div>}
       {current !== count && <Button onClick={() => handlePageNavigation(count)}>{count}</Button>}
       <Button disabled={current === count} onClick={() => handlePageNavigation(current + 1)}>Next<ChevronRight /></Button>

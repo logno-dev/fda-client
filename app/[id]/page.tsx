@@ -1,6 +1,6 @@
 import { client } from "@/app/lib/data";
-import { Button } from "@/components/ui/button";
 import { NavBack } from "../components/nav-back";
+import { formatDate } from "../lib/functions";
 
 export default async function Page({ params, }: {
   params: Promise<{ id: string }>
@@ -72,11 +72,11 @@ export default async function Page({ params, }: {
         <div className="text-lg font-bold bg-neutral-100 p-2 ">Recall Initialization Date</div>
         <div className="p-2">{row.recall_init_date?.toString()}</div>
         <div className="text-lg font-bold bg-neutral-100 p-2 ">Classification Date</div>
-        <div className="p-2">{row.center_classification_date?.toString()}</div>
+        <div className="p-2">{formatDate(row.center_classification_date?.toString())}</div>
         <div className="text-lg font-bold bg-neutral-100 p-2 ">Termination Date</div>
-        <div className="p-2">{row.termination_date?.toString()}</div>
+        <div className="p-2">{formatDate(row.termination_date?.toString())}</div>
         <div className="text-lg font-bold bg-neutral-100 p-2 ">Updated</div>
-        <div className="p-2">{row.report_date?.toString()}</div>
+        <div className="p-2">{formatDate(row.report_date?.toString())}</div>
         <div className="text-lg font-bold bg-neutral-100 p-2 ">Code Info</div>
         <div className="p-2">{row.code_info?.toString()}</div>
         <div className="p-2">{row.more_code_info?.toString()}</div>
