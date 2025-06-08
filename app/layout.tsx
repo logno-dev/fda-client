@@ -28,7 +28,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="flex flex-col top-0 right-0 bottom-0 left-0">
-          <div className="flex bg-blue-500 h-20"></div>
+          <div className="flex bg-[#102135] h-20 items-center">
+            <a href="https://jurislawgroup.com" className="p-3"><img src="JURIS-LG-logo.svg" width="100" /></a>
+          </div>
           <div className="flex p-2 grow relative">
             {children}
           </div>

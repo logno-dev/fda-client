@@ -3,13 +3,13 @@
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-export function Limit() {
+export function Limit({ defaultLimit }: { defaultLimit: string }) {
 
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
 
-  const currentSelection = searchParams.get('limit') || "10"
+  const currentSelection = searchParams.get('limit') || defaultLimit
 
   function handleChange(limit: string) {
     const params = new URLSearchParams(searchParams)
