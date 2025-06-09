@@ -27,14 +27,15 @@ export function Search() {
   }, 300)
 
   return (
-    <div className="flex grow items-center content-center justify-center gap-2 bg-neutral-100 rounded-md">
+    <div className="flex grow items-center content-center bg-blue-600 justify-center gap-2  rounded-md mb-2">
       <Input
+        className=" shadow-none border-2 border-blue-600 focus-visible:border-green-800/70"
         type="text"
         placeholder="search recalls"
         onChange={(e) => handleSearch(e.target.value)}
         defaultValue={searchParams.get('search')?.toString()}
       />
-      <SearchIcon className="text-neutral-400 scale-110" />
+      <SearchIcon className="text-neutral-100 scale-110" />
       <div className="w-1"></div>
 
     </div>

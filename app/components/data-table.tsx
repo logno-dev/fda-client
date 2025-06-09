@@ -39,7 +39,7 @@ export function DataTable({
 
 
   return (
-    <div className="rounded-md border max-h-[80dvh] overflow-auto">
+    <div className="rounded-md border max-h-[70dvh] overflow-auto">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
