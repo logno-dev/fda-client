@@ -1,11 +1,13 @@
 "use client";
+import { Button } from "@/components/ui/button";
 
 import { ColumnDef } from "@tanstack/react-table";
+import { DateOrder } from "./date-order";
 
 export const columns = [
   {
     accessorKey: "recall_date",
-    header: "Date",
+    header: (<DateOrder />),
   },
   {
     accessorKey: "recalling_firm",
