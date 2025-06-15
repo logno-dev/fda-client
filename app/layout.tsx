@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Footer } from "@/app/components/footer"
 import "./globals.css";
+import { ScrollRestoration } from "next-scroll-restoration";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "",
-  description: "",
+  title: "Food Industry Recalls",
+  description: "A quick and up-to-date searchable index of FDA and USDA recalls",
 };
 
 export default function RootLayout({

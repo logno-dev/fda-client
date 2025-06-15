@@ -12,7 +12,7 @@ export function Pagination({ current, count }: { current: number, count: number 
   function handlePageNavigation(page: number) {
     const params = new URLSearchParams(searchParams)
     params.set('page', page.toString())
-    push(`${pathname}?${params.toString()}`)
+    push(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
   return (

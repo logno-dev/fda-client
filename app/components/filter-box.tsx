@@ -33,7 +33,7 @@ export function FilterBox({ filterItem }: { filterItem: FilterDef }) {
     } else {
       params.delete(filterItem.headerId)
     }
-    replace(`${pathname}?${params.toString()}`)
+    replace(`${pathname}?${params.toString()}`, { scroll: false })
   }, [selectedItems])
 
 

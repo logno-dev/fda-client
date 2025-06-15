@@ -14,7 +14,7 @@ export function Limit({ defaultLimit }: { defaultLimit: string }) {
   function handleChange(limit: string) {
     const params = new URLSearchParams(searchParams)
     params.set("limit", limit)
-    replace(`${pathname}?${params.toString()}`)
+    replace(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
 

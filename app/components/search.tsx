@@ -23,7 +23,7 @@ export function Search() {
       params.delete('search')
     }
     params.set('page', '1')
-    replace(`${pathname}?${params.toString()}`)
+    replace(`${pathname}?${params.toString()}`, { scroll: false })
   }, 300)
 
   return (
