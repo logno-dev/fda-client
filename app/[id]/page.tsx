@@ -34,7 +34,7 @@ export default async function Page({ params, }: {
           Recall Number: <span className="text-blue-900">{row.recall_number.toString()}</span>
         </div>
         <div className="text-lg font-bold bg-neutral-100 p-2 ">Authority</div>
-        <div className="p-2">{row.authority.toString()}</div>
+        <div className="p-2">{row.authority?.toString()}</div>
         <div className="text-lg font-bold bg-neutral-100 p-2 ">Status</div>
         <div className="p-2">{transformStatus(row.status?.toString())}</div>
         <div className="text-lg font-bold bg-neutral-100 p-2 ">City</div>
