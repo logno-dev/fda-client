@@ -39,9 +39,9 @@ export function DataTable({
 
 
   return (
-    <div className="rounded-md border max-h-[70dvh] overflow-auto">
-      <Table>
-        <TableHeader>
+    <div className="rounded-md border">
+      <Table className="divide-y">
+        <TableHeader className="bg-stone-100 sticky top-0 z-15">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -59,7 +59,7 @@ export function DataTable({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className="max-h-[80dvh] overflow-auto">
+        <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow

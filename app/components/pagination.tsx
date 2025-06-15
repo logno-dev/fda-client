@@ -16,7 +16,7 @@ export function Pagination({ current, count }: { current: number, count: number 
   }
 
   return (
-    <div className="flex content-center items-center">
+    <div className="flex flex-wrap content-center items-center">
       <Button disabled={current === 1} onClick={() => handlePageNavigation(current - 1)}><ChevronLeft />Previous</Button>
       {current > 3 && <Button onClick={() => handlePageNavigation(1)}>1</Button>}
       {current > 4 && <div className="font-bold px-2">...</div>}

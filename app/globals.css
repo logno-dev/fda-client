@@ -122,3 +122,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+ul {
+  list-style-type: disc;
+}
+
+li {
+  margin-left: 2rem;
+}

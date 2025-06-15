@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Footer } from "@/app/components/footer"
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,13 +29,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="flex flex-col top-0 right-0 bottom-0 left-0">
-          <div className="flex bg-[#102135] w-full h-20 items-center">
-            <a href="https://jurislawgroup.com" className="p-3"><img src="JURIS-LG-logo.svg" width="100" /></a>
+          <div className="flex bg-[#102135] w-full p-8 items-center justify-between">
+            <a href="https://jurislawgroup.com" className="p-3"><img src="JURIS-LG-logo.svg" width="160" /></a>
+            <a href="https://jurislawgroup.com" className="text-stone-100 text-sm hover:text-stone-300">Back to main site</a>
           </div>
           <div className="flex p-2 grow relative max-w-dvw overflow-y-scroll">
             {children}
           </div>
         </div>
+        <Footer />
       </body>
     </html>
   );

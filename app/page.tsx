@@ -10,6 +10,7 @@ import { Limit } from "./components/limit-results";
 import { executeQuery, formatDate } from "./lib/functions";
 import { FilterBox } from "./components/filter-box";
 import { classification, agency, allergens } from "@/app/lib/const"
+import { Pros } from "./components/pros";
 
 
 export default async function Home(props: {
@@ -36,19 +37,16 @@ export default async function Home(props: {
   return (
     <>
       <div className="flex flex-col">
-        <div className="flex flex-col content-center items-center p-2 gap-2">
-          <h2 className="font-bold text-2xl">
-            Food Recall Databases
-          </h2>
-          <p>Browse thousands of results below by searching or filtering results.</p>
+        <div className="flex flex-col content-center items-center">
+          <Pros />
         </div>
-        <div className="flex">
-          <div className="flex flex-col gap-2 min-w-40 p-2">
+        <div className="grid grid-cols-12 grid-rows-auto" id="recalls">
+          <div className="row-2 md:row-1 col-span-12 md:col-span-2 flex flex-wrap md:flex-col gap-2 p-2">
             <FilterBox filterItem={agency} />
             <FilterBox filterItem={classification} />
             <FilterBox filterItem={allergens} />
           </div>
-          <div className="p-2 pb-4 flex flex-col grow items-center justify-between gap-2">
+          <div className="row-1 md:col-3 col-span-12 md:col-span-10 p-2 pb-4 flex flex-col grow items-center justify-between gap-2">
             <div className="flex flex-col grow">
               <div className="flex">
                 <Search />

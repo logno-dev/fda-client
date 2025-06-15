@@ -42,6 +42,6 @@ export function DateOrder() {
 
 
   return (
-    <Button onClick={handleClick} variant="ghost" size="sm">Date<Arrow direction={direction} /></Button>
+    <Button onClick={handleClick} variant="ghost" size="sm" className="hover:bg-stone-200">Date<Arrow direction={direction} /></Button>
   )
 }

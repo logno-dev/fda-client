@@ -40,8 +40,8 @@ export function FilterBox({ filterItem }: { filterItem: FilterDef }) {
 
 
   return (
-    <div className="rounded-md border p-1 flex flex-col">
-      <div className="bg-white p-1 rounded-2xl w-full max-w-md">
+    <div className="rounded-md border h-fit p-1 flex flex-col">
+      <div className="bg-white p-1 rounded-2xl w-full">
         <h1 className="text-lg font-bold border-b-2 border-stone-200 text-gray-800 mb-2 text-center">
           {filterItem.headerName}
         </h1>
