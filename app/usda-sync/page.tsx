@@ -9,10 +9,16 @@ export default function Page() {
     setLoading(true)
 
     try {
-      const res = await fetch('https://www.fsis.usda.gov/fsis/api/recall/v/1')
+      const res = await fetch('https://www.fsis.usda.gov/fsis/api/recall/v/1', {
+        headers: {
+          'Accept': 'application/json',
+        },
+      })
       const data = await res.json()
 
-      const reports = data.results || []
+      const reports = data.slice(0, 200)
+
+
 
       const postRes = await fetch('/api/sync-recalls', {
         method: 'POST',
