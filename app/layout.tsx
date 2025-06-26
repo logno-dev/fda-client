@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Footer } from "@/app/components/footer"
 import "./globals.css";
 import { ScrollRestoration } from "next-scroll-restoration";
-
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -16,7 +16,9 @@ export default function Page() {
       })
       const data = await res.json()
 
-      const reports = data
+      const reports = data.slice(0, 300)
+
+      console.log(reports)
 
 
       const postRes = await fetch('/api/sync-recalls', {
