@@ -16,7 +16,7 @@ export default function Page() {
       })
       const data = await res.json()
 
-      const reports = data.slice(0, 300)
+      const reports = data.slice(0, 30)
 
       console.log(reports)
 
