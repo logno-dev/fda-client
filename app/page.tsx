@@ -1,16 +1,14 @@
-import Image from "next/image";
-import { client } from "@/app/lib/data";
 import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
-import { revalidatePath } from "next/cache";
 import { Pagination } from "./components/pagination";
 import { Search } from "./components/search";
 import { Suspense } from "react";
 import { Limit } from "./components/limit-results";
-import { executeQuery, formatDate } from "./lib/functions";
+import { executeQuery } from "./lib/functions";
 import { FilterBox } from "./components/filter-box";
 import { classification, agency, allergens } from "@/app/lib/const"
 import { Pros } from "./components/pros";
+import { syncFSISData } from "./lib/fsis-sync";
 
 
 export default async function Home(props: {
@@ -31,6 +29,8 @@ export default async function Home(props: {
     searchParams: searchParams,
     currentPage: Number(searchParams?.page) || 1,
   }
+
+  await syncFSISData()
 
   const [data, count] = await executeQuery(params)
 
