@@ -8,7 +8,7 @@ import { executeQuery } from "./lib/functions";
 import { FilterBox } from "./components/filter-box";
 import { classification, agency, allergens } from "@/app/lib/const"
 import { Pros } from "./components/pros";
-import { syncFSISData } from "./lib/fsis-sync";
+import { BackgroundSync } from "./components/background-sync";
 
 
 export default async function Home(props: {
@@ -30,12 +30,11 @@ export default async function Home(props: {
     currentPage: Number(searchParams?.page) || 1,
   }
 
-  await syncFSISData()
-
   const [data, count] = await executeQuery(params)
 
   return (
     <>
+      <BackgroundSync />
       <div className="flex flex-col">
         <div className="flex flex-col content-center items-center">
           <Pros />
