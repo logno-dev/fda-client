@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { client } from '@/app/lib/data'
+import { recordUpload } from '@/app/lib/sync-tracker'
 
 export async function POST(req: NextRequest) {
   try {
@@ -53,7 +54,7 @@ export async function POST(req: NextRequest) {
         ],
       })
     }
-    console.log(data.length)
+    recordUpload(data.length)
 
     return NextResponse.json({ status: 'ok', count: data.length })
   } catch (err) {
