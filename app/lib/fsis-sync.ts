@@ -68,8 +68,8 @@ export async function syncFSISData() {
       })
     }
 
-    await recordUpload(reports.length)
     console.log(`FSIS sync completed: ${reports.length} records`)
+    await recordUpload(reports.length)
     
     return { status: 'success', count: reports.length }
   } catch (error) {
