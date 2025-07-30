@@ -19,8 +19,27 @@ export function BackgroundSync() {
       if (needsSync) {
         setSyncStatus('syncing')
         
+        // Fetch FSIS data from client
+        const fsisResponse = await fetch('https://www.fsis.usda.gov/fsis/api/recall/v/1', {
+          headers: {
+            'Accept': 'application/json',
+          },
+        })
+        
+        if (!fsisResponse.ok) {
+          throw new Error(`FSIS API error: ${fsisResponse.status}`)
+        }
+        
+        const fsisData = await fsisResponse.json()
+        const reports = fsisData.slice(0, 300)
+        
+        // Send processed data to server
         const syncResponse = await fetch('/api/background-sync', {
-          method: 'POST'
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ reports })
         })
         
         if (syncResponse.ok) {

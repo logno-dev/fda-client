@@ -1,7 +1,7 @@
 import { client } from './data'
 import { createSyncTrackerTable, hasUploadedToday, recordUpload } from './sync-tracker'
 
-export async function syncFSISData() {
+export async function syncFSISData(reports: any[]) {
   await createSyncTrackerTable()
   
   if (await hasUploadedToday()) {
@@ -10,18 +10,6 @@ export async function syncFSISData() {
   }
 
   try {
-    const res = await fetch('https://www.fsis.usda.gov/fsis/api/recall/v/1', {
-      headers: {
-        'Accept': 'application/json',
-      },
-    })
-    
-    if (!res.ok) {
-      throw new Error(`FSIS API error: ${res.status}`)
-    }
-    
-    const data = await res.json()
-    const reports = data.slice(0, 300)
 
     for (const report of reports) {
       await client.execute({
