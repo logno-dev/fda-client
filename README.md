@@ -1,5 +1,30 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Food Recall Sync System
+
+This project syncs food recall data from both FDA and USDA sources to a Turso database.
+
+### FDA Sync (Automated)
+- Runs automatically via Vercel Cron Job daily at 2:00 AM UTC
+- Fetches the latest 100 FDA food enforcement records
+- Endpoint: `/api/sync-fda`
+- Can be manually triggered by visiting the endpoint (requires CRON_SECRET if configured)
+
+### USDA Sync (Client-Side)
+- Runs when users visit the site (once per day)
+- Required because the USDA API doesn't respond to server/headless requests
+- Uses client-side data fetching and background sync
+
+### Environment Variables
+```
+TURSO_DB_URL=your_turso_database_url
+TURSO_DB_TOKEN=your_turso_auth_token
+CRON_SECRET=your_cron_secret (optional, for securing the cron endpoint)
+```
+
+### Database Schema
+Both FDA and USDA data are stored in the `reports` table with a unified schema. A `sync_tracker` table tracks daily syncs per authority to prevent duplicate syncs.
+
 ## Getting Started
 
 First, run the development server:
