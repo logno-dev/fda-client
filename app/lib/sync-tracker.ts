@@ -1,6 +1,7 @@
 import { client } from './data'
 
 export async function createSyncTrackerTable() {
+  // Create table if it doesn't exist
   await client.execute(`
     CREATE TABLE IF NOT EXISTS sync_tracker (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -10,6 +11,19 @@ export async function createSyncTrackerTable() {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `)
+  
+  // Check if authority column exists, if not add it (migration)
+  try {
+    await client.execute(`
+      SELECT authority FROM sync_tracker LIMIT 1
+    `)
+  } catch (error) {
+    // Column doesn't exist, add it
+    console.log('Migrating sync_tracker table: adding authority column')
+    await client.execute(`
+      ALTER TABLE sync_tracker ADD COLUMN authority TEXT NOT NULL DEFAULT 'USDA'
+    `)
+  }
 }
 
 export async function hasUploadedToday(authority: string = 'USDA'): Promise<boolean> {
