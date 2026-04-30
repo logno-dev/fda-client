@@ -37,7 +37,7 @@ export function DateOrder() {
       params.delete('direction')
       setDirection('DESC')
     }
-    replace(`${pathname}?${params.toString()}`)
+    replace(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
 

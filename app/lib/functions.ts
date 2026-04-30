@@ -1,16 +1,14 @@
 import { client } from "./data";
 
-export function formatDate(dateStr: string) {
-  let year, month, day
-
+export function formatDate(dateStr: string | null | undefined) {
   if (!dateStr) {
-    return ""
-  } else {
-    year = dateStr.slice(0, 4);
-    month = dateStr.slice(4, 6);
-    day = dateStr.slice(6, 8);
+    return "";
   }
 
+  const value = String(dateStr);
+  const year = value.slice(0, 4);
+  const month = value.slice(4, 6);
+  const day = value.slice(6, 8);
 
   return `${year}-${month}-${day}`;
 }
@@ -66,7 +64,11 @@ export async function executeQuery(params) {
   }
 
 
-  const sql = `SELECT center_classification_date, recalling_firm, reason, classification, recall_number FROM 'reports' ${conditions} ORDER BY ${order} ${direction} LIMIT ${limit} OFFSET ${(currentPage - 1) * +limit}`
+  const sortClause = order === "center_classification_date"
+    ? `ORDER BY center_classification_date IS NULL, center_classification_date ${direction}`
+    : `ORDER BY ${order} ${direction}`;
+
+  const sql = `SELECT center_classification_date, recalling_firm, reason, classification, recall_number FROM 'reports' ${conditions} ${sortClause} LIMIT ${limit} OFFSET ${(currentPage - 1) * +limit}`
 
   console.log("from functions.ts:" + sql)
 
@@ -81,7 +83,7 @@ export async function executeQuery(params) {
   const data = rows.map((row) => {
 
     return {
-      recall_date: formatDate(row.center_classification_date.toString()),
+      recall_date: formatDate(row.center_classification_date),
       recalling_firm: row.recalling_firm ? String(row.recalling_firm).replaceAll("&#039;", "'") : ""
       ,
       recall_reason: row.reason,
