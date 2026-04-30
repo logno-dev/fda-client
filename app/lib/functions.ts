@@ -1,6 +1,6 @@
 import { client } from "./data";
 
-export function formatDate(dateStr: string | number | null | undefined) {
+export function formatDate(dateStr: string | number | bigint | null | undefined) {
   if (!dateStr) {
     return "";
   }
