@@ -1,7 +1,11 @@
 import { client } from "./data";
 
-export function formatDate(dateStr: string | number | bigint | null | undefined) {
-  if (!dateStr) {
+export function formatDate(dateStr: unknown) {
+  if (dateStr === null || dateStr === undefined) {
+    return "";
+  }
+
+  if (typeof dateStr !== "string" && typeof dateStr !== "number" && typeof dateStr !== "bigint") {
     return "";
   }
 
